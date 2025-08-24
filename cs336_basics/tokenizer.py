@@ -65,4 +65,4 @@ class BPETokenizer:
         list = []
         for id in ids:
             list.append(self.vocab[id])
-        return b"".join(list).decode("utf-8")
+        return b"".join(list).decode("utf-8", errors="replace")
