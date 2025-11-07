@@ -86,3 +86,28 @@ def test_train_bpe_special_tokens(snapshot):
             "merges": merges,
         },
     )
+
+import pathlib
+data_folder = (pathlib.Path(__file__).resolve().parent.parent) / "data"
+
+def test_train_bpe_on_tiny_story_valid():
+    start_time = time.time()
+    input_path = data_folder / "TinyStoriesV2-GPT4-valid.txt"
+    _, _ = run_train_bpe(
+        input_path=input_path,
+        vocab_size=10000,
+        special_tokens=["<|endoftext|>"])
+    end_time = time.time()
+
+    assert(end_time - start_time <= 120)
+
+def test_train_bpe_on_tiny_story_train():
+    start_time = time.time()
+    input_path = data_folder / "TinyStoriesV2-GPT4-train.txt"
+    _, _ = run_train_bpe(
+        input_path=input_path,
+        vocab_size=10000,
+        special_tokens=["<|endoftext|>"])
+    end_time = time.time()
+
+    assert(end_time - start_time <= 120)
