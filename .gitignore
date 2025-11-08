@@ -161,3 +161,10 @@ cython_debug/
 
 .ruff_cache/
 *.zip
+
+# Data directory
+data/
+
+# Profile files
+profile.html
+profile.json
