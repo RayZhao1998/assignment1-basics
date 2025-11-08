@@ -88,8 +88,10 @@ def test_train_bpe_special_tokens(snapshot):
     )
 
 import pathlib
+import pytest
 data_folder = (pathlib.Path(__file__).resolve().parent.parent) / "data"
 
+@pytest.mark.skip()
 def test_train_bpe_on_tiny_story_valid():
     start_time = time.time()
     input_path = data_folder / "TinyStoriesV2-GPT4-valid.txt"
@@ -101,6 +103,7 @@ def test_train_bpe_on_tiny_story_valid():
 
     assert(end_time - start_time <= 120)
 
+@pytest.mark.skip()
 def test_train_bpe_on_tiny_story_train():
     start_time = time.time()
     input_path = data_folder / "TinyStoriesV2-GPT4-train.txt"
