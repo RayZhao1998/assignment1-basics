@@ -6,7 +6,7 @@ class Embedding(torch.nn.Module):
         self.num_embeddings = num_embeddings
         self.embedding_dim = embedding_dim
         self.weights = torch.nn.Parameter(torch.empty(num_embeddings, embedding_dim))
-        self.weights = torch.nn.init.trunc_normal_(self.weights, mean=0.0, std=1.0, a=-3.0, b=3.0)
+        torch.nn.init.trunc_normal_(self.weights, mean=0.0, std=1.0, a=-3.0, b=3.0)
         self.device = device
         self.dtype = dtype
 
