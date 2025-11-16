@@ -13,7 +13,7 @@ def scaled_dot_product_attention(
     scores = Q @ K.transpose(-2, -1) / sqrt_d_k # (..., queries, keys)
 
     if mask is not None:
-        scores = scores.masked_fill(~mask, float("-inf"))
+        scores = scores.masked_fill(mask == 0, float("-inf"))
 
     attention = softmax(scores, dim=-1) # (..., queries, keys)
     # (..., queries, keys) @ (..., values, d_v) -> (..., queries, d_v)
