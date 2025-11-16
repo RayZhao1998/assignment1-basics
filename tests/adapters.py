@@ -19,6 +19,7 @@ from cs336_basics.rope import RoPE
 from cs336_basics.softmax import softmax
 from cs336_basics.scaled_dot_product_attention import scaled_dot_product_attention
 from cs336_basics.multihead_self_attention import MultiHeadSelfAttention, MultiHeadSelfAttentionWithRoPE
+from cs336_basics.transformer_block import TranformerBlock
 
 def run_linear(
     d_in: int,
@@ -256,7 +257,7 @@ def run_transformer_block(
         d_model (int): The dimensionality of the Transformer block input.
         num_heads (int): Number of heads to use in multi-headed attention. `d_model` must be
             evenly divisible by `num_heads`.
-        d_ff (int): Dimensionality of the feed-forward inner layer.
+        d_ff (int): Dimensionality dapof the feed-forward inner layer.
         max_seq_len (int): Maximum sequence length to pre-cache if your implementation does that.
         theta (float): RoPE parameter.
         weights (dict[str, Tensor]):
@@ -304,7 +305,19 @@ def run_transformer_block(
         Float[Tensor, "batch sequence_length d_model"] Tensor with the output of
         running the Transformer block on the input features while using RoPE.
     """
-    raise NotImplementedError
+    transformer_block = TranformerBlock(d_model, num_heads, d_ff, max_seq_len, theta, device=in_features.device, dtype=in_features.dtype)
+    transformer_block.load_state_dict({
+        "mhsa.W_q": weights["attn.q_proj.weight"],
+        "mhsa.W_k": weights["attn.k_proj.weight"],
+        "mhsa.W_v": weights["attn.v_proj.weight"],
+        "mhsa.W_o": weights["attn.output_proj.weight"],
+        "ln1.g": weights["ln1.weight"],
+        "ln2.g": weights["ln2.weight"],
+        "ffn.w1": weights["ffn.w1.weight"],
+        "ffn.w2": weights["ffn.w2.weight"],
+        "ffn.w3": weights["ffn.w3.weight"],
+    })
+    return transformer_block(in_features)
 
 
 def run_transformer_lm(
