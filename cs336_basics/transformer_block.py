@@ -4,7 +4,7 @@ from cs336_basics.multihead_self_attention import MultiHeadSelfAttentionWithRoPE
 from cs336_basics.swiglu import SwiGLU
 from jaxtyping import Float
 
-class TranformerBlock(torch.nn.Module):
+class TransformerBlock(torch.nn.Module):
     def __init__(
         self,
         d_model: int,
