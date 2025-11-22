@@ -23,6 +23,7 @@ from cs336_basics.transformer_block import TransformerBlock
 from cs336_basics.transformer import Transformer
 from cs336_basics.cross_entropy import cross_entropy
 from cs336_basics.adamw import AdamW
+from cs336_basics.cosine_schedule import cosine_schedule
 
 def run_linear(
     d_in: int,
@@ -560,6 +561,7 @@ def run_get_lr_cosine_schedule(
     Returns:
         Learning rate at the given iteration under the specified schedule.
     """
+    return cosine_schedule(it, max_learning_rate, min_learning_rate, warmup_iters, cosine_cycle_iters)
     raise NotImplementedError
 
 
