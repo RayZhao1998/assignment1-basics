@@ -90,6 +90,7 @@ def test_train_bpe_special_tokens(snapshot):
 import pathlib
 import pytest
 data_folder = (pathlib.Path(__file__).resolve().parent.parent) / "data"
+TINYSTORIES_VALID_DIR = data_folder / "tinystories_valid_tokenizer"
 TINYSTORIES_ARTIFACTS_DIR = data_folder / "tinystories_tokenizer"
 
 
@@ -126,10 +127,11 @@ def _save_tokenizer_artifacts(vocab, merges, output_dir):
 def test_train_bpe_on_tiny_story_valid():
     start_time = time.time()
     input_path = data_folder / "TinyStoriesV2-GPT4-valid.txt"
-    _, _ = run_train_bpe(
+    vocab, merges = run_train_bpe(
         input_path=input_path,
         vocab_size=10000,
         special_tokens=["<|endoftext|>"])
+    _save_tokenizer_artifacts(vocab, merges, TINYSTORIES_VALID_DIR)
     end_time = time.time()
 
     assert(end_time - start_time <= 120)

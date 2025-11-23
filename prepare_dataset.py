@@ -29,7 +29,7 @@ def main():
     print("Trained BPE")
 
     tokenizer = BPETokenizer(vocab, merges, special_tokens=args.special)
-    ids = tokenizer.encode(text)
+    ids = tokenizer.encode_parallel(text, num_workers=14)
     print("Tokenized")
 
     arr = np.array(ids, dtype=np.uint16)
