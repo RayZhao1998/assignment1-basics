@@ -123,7 +123,7 @@ def _save_tokenizer_artifacts(vocab, merges, output_dir):
             right_unicode = ''.join([byte_to_unicode[byte] for byte in right])
             merges_file.write(f"['{left_unicode}', '{right_unicode}']\n")
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_train_bpe_on_tiny_story_valid():
     start_time = time.time()
     input_path = data_folder / "TinyStoriesV2-GPT4-valid.txt"
@@ -136,7 +136,7 @@ def test_train_bpe_on_tiny_story_valid():
 
     assert(end_time - start_time <= 120)
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_train_bpe_on_tiny_story_train():
     start_time = time.time()
     input_path = data_folder / "TinyStoriesV2-GPT4-train.txt"

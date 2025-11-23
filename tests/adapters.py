@@ -27,6 +27,7 @@ from cs336_basics.cosine_schedule import cosine_schedule
 from cs336_basics.gradient_clipping import gradient_clipping
 from cs336_basics.data_loading import data_loading
 from cs336_basics.checkpointing import save_checkpoint, load_checkpoint
+from cs336_basics.silu import SiLU
 
 def run_linear(
     d_in: int,
@@ -462,7 +463,7 @@ def run_silu(in_features: Float[Tensor, " ..."]) -> Float[Tensor, " ..."]:
         Float[Tensor,"..."]: of with the same shape as `in_features` with the output of applying
         SiLU to each element.
     """
-    raise NotImplementedError
+    return SiLU(in_features)
 
 
 def run_get_batch(
